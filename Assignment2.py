@@ -3,13 +3,8 @@
 
 #accept an array of n integers, then perform either merge sort or quick sort, ensure to print out each step
 
-def main():
-    array = [2, 3, 5, 1, 7, 4, 4, 4, 2, 6, 0]
-    MergeSort(array)
-    print(array)
-
-    """
-    print("Welcome to the Sorting Program!")
+def main(): 
+    print("\nWelcome to the Sorting Program!")
     print("\nPlease enter numbers for the array, or type EXIT to stop")
     
     array = []
@@ -43,11 +38,13 @@ def main():
             # go to merge sort function
             if int(answer) == 1:
                 MergeSort(array)
+                print("Sorted: ", array)
                 counter2 = 1
 
             # go to quick sort function
             elif int(answer) == 2:
-                QuickSort(array)
+                QuickSort(array, 0, len(array) - 1)
+                print("Sorted: ", array)
                 counter2 = 1
 
             else: 
@@ -56,32 +53,27 @@ def main():
             print("Invalid")
         print()
 
-    """
-
-def MergeSort(array):
-    print("we are merging")
-
-    print("LEGNTH: ", len(array))
+def MergeSort(array, depth=0):
+    indent = "  " * depth  # Calculate indentation based on recursion depth
+    print(indent + "Sorting array:", array)  # Print the array being sorted
 
     if len(array) > 1:
-        left_array = array[:len(array)//2]
-        right_array = array[len(array)//2]
+        # Split array into left and right halves
+        mid = len(array) // 2
+        left_array = array[:mid]
+        right_array = array[mid:]
 
-        #recursion
-        MergeSort(left_array)
-        MergeSort(right_array)
+        # Recursively sort left and right halves
+        MergeSort(left_array, depth + 1)
+        MergeSort(right_array, depth + 1)
 
-        #merge
-
-        i = 0 #left index
-        j = 0 #right index
-        k = 0 #merged index
-
+        # Merge the sorted halves
+        i = j = k = 0
         while i < len(left_array) and j < len(right_array):
             if left_array[i] < right_array[j]:
                 array[k] = left_array[i]
                 i += 1
-            else: 
+            else:
                 array[k] = right_array[j]
                 j += 1
             k += 1
@@ -95,10 +87,34 @@ def MergeSort(array):
             array[k] = right_array[j]
             j += 1
             k += 1
-
-def QuickSort(array):
-    print("We are quicking")
-    print(array)
         
+        print(indent + "Merging:", left_array, right_array)  # Print the merged arrays
+
+
+def QuickSort(arr, left, right):
+    if left < right:
+        partition_pos = partition(arr, left, right)
+        print("Partitioning array from index", left, "to", right, ": ", arr[left:right+1])
+        QuickSort(arr, left, partition_pos - 1)
+        QuickSort(arr, partition_pos + 1, right)
+
+def partition(arr, left, right):
+    i = left
+    j = right - 1
+    pivot = arr[right]
+
+    while i < j:
+        while i < right and arr[i] < pivot:
+            i += 1
+        while j > left and arr[j] >= pivot:
+            j -= 1
+
+        if i < j:
+            arr[i], arr[j] = arr[j], arr[i]
+    print("Partitioned array:", arr[left:right+1], "Pivot:", pivot)
+    if arr[i] > pivot:
+        arr[i], arr[right] = arr[right], arr[i]
+    return i
+   
 if __name__ == "__main__":
     main()
