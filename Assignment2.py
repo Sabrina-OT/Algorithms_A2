@@ -1,18 +1,22 @@
 #Sabrina Skoric: 100872613
 #Algorithms and Data Structures Assignment 2
 
-#accept an array of n integers, then perform either merge sort or quick sort, ensure to print out each step
+#ADD THE SOUNDS !!!!!!!!!!!!!!!!!
+
+#TASK: accept an array of n integers, then perform either merge sort or quick sort. Ensure to print out each step
 
 def main(): 
     print("\nWelcome to the Sorting Program!")
     print("\nPlease enter numbers for the array, or type EXIT to stop")
     
+    # initialize some variables
     array = []
     counter = 0
 
     # get numbers from the user
     while counter == 0:
         number = input("Number: ")
+        #ensure they are valid integers
         try:
             number = int(number)
             array.append(number)
@@ -23,6 +27,7 @@ def main():
             else:
                 print("Invalid Input")
 
+    #print out the array to users
     print("Here is your array: ", array)
 
     # let user decide sorting algorithm
@@ -31,6 +36,7 @@ def main():
     print("2 = QUICK SORT")
 
     counter2 = 0
+    # ensure the user enters a valid input
     while counter2 == 0:
         answer = input("Algorithm: ")
 
@@ -54,8 +60,12 @@ def main():
         print()
 
 def MergeSort(array, depth=0):
-    indent = "  " * depth  # Calculate indentation based on recursion depth
-    print(indent + "Sorting array:", array)  # Print the array being sorted
+    #calculate the indentation based on the recursion depth
+    #this is done so that the output of the steps is more organized
+    indent = "  " * depth 
+    
+    # print out the array currently being sorted
+    print(indent + "Sorting array:", array) 
 
     if len(array) > 1:
         # Split array into left and right halves
@@ -88,32 +98,48 @@ def MergeSort(array, depth=0):
             j += 1
             k += 1
         
-        print(indent + "Merging:", left_array, right_array)  # Print the merged arrays
+        #print the merged arrays
+        print(indent + "Merging:", left_array, right_array) 
 
 
 def QuickSort(arr, left, right):
     if left < right:
+        #partition the arrat and get the position of the pivot
         partition_pos = partition(arr, left, right)
+        
+        #print the subarray that is being partitioned
         print("Partitioning array from index", left, "to", right, ": ", arr[left:right+1])
+       
+        #Recursively sort the left and right subarrays
         QuickSort(arr, left, partition_pos - 1)
         QuickSort(arr, partition_pos + 1, right)
 
 def partition(arr, left, right):
     i = left
     j = right - 1
+
+    #Choose the pivot as the last element
     pivot = arr[right]
 
     while i < j:
+        # Move the left pointer until the value >= pivot
         while i < right and arr[i] < pivot:
             i += 1
+        # Move the right pointer until the value < pivot
         while j > left and arr[j] >= pivot:
             j -= 1
 
+        # Swap the elements at the left and right pointers if necessary
         if i < j:
             arr[i], arr[j] = arr[j], arr[i]
+
+    # Print the partitioned array
     print("Partitioned array:", arr[left:right+1], "Pivot:", pivot)
+
+    # If the element is bigger than the pivot, then swap
     if arr[i] > pivot:
         arr[i], arr[right] = arr[right], arr[i]
+
     return i
    
 if __name__ == "__main__":
