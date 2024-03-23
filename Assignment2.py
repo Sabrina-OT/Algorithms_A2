@@ -1,9 +1,9 @@
 #Sabrina Skoric: 100872613
 #Algorithms and Data Structures Assignment 2
 
-#ADD THE SOUNDS !!!!!!!!!!!!!!!!!
-
 #TASK: accept an array of n integers, then perform either merge sort or quick sort. Ensure to print out each step
+
+import winsound
 
 def main(): 
     print("\nWelcome to the Sorting Program!")
@@ -88,6 +88,9 @@ def MergeSort(array, depth=0):
                 j += 1
             k += 1
 
+            # Play the sound effect for the swap
+            winsound.PlaySound("Ding.wav", winsound.SND_FILENAME)
+
         while i < len(left_array):
             array[k] = left_array[i]
             i += 1
@@ -132,6 +135,9 @@ def partition(arr, left, right):
         # Swap the elements at the left and right pointers if necessary
         if i < j:
             arr[i], arr[j] = arr[j], arr[i]
+        
+        # Play the sound effect for the swap
+        winsound.PlaySound("Ding.wav", winsound.SND_FILENAME)
 
     # Print the partitioned array
     print("Partitioned array:", arr[left:right+1], "Pivot:", pivot)
